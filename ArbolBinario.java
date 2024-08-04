@@ -167,7 +167,7 @@ public class ArbolBinario {
         System.out.println("Inorden (Participantes que no asistieron):");
         g.inorden(raizNoAsistentes);
 
-        archivo.escribirArchivo("NoAsistentes.txt", raizNoAsistentes.getDato());
+        archivo.escribirArchivo("NoAsistentes.txt", raizNoAsistentes);
     }
 
     public void visualizarAsistentes() {
@@ -185,7 +185,7 @@ public class ArbolBinario {
         System.out.println("Inorden (Participantes que asistieron):");
         r.inorden(raiz);
 
-        archivo.escribirArchivo("Asistentes.txt", raiz.getDato());
+        archivo.escribirArchivo("Asistentes.txt", raiz);
     }
 
     public void busquedaDeParticipanteFolio() {
@@ -214,49 +214,45 @@ public class ArbolBinario {
                 System.out.println("Folio: " + nodo.getDato().getFolio());
                 System.out.println("Asistencia: " + nodo.getDato().getAsistencia());
             } else {
-                System.out.println("Folio No Encontrado");
+                System.out.println("Folio NO Encontrado.");
             }
         } catch (InputMismatchException e) {
-            System.out.println("Entrada no válida. Por favor, introduce un número.");
-            entrada.nextLine();  
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Índice fuera de los límites.");
-        } catch (Exception e) {
-            System.out.println("Ha ocurrido un error: " + e.getMessage());
+            System.out.println("Folio inválido. Por favor, introduce un número.");
+            entrada.nextLine();
         }
     }
 
-    private void agregarParticipanteAlArbol(Nodo raiz, Nodo nuevoNodo) {
-        if (nuevoNodo.getDato().getFolio() < raiz.getDato().getFolio()) {
-            if (raiz.getIzq() == null) {
-                raiz.setIzq(nuevoNodo);
-            } else {
-                agregarParticipanteAlArbol(raiz.getIzq(), nuevoNodo);
-            }
+    public Nodo busqueda(Nodo nodo, int folioBuscado) {
+        if (nodo == null || nodo.getDato().getFolio() == folioBuscado) {
+            return nodo;
+        }
+
+        if (folioBuscado < nodo.getDato().getFolio()) {
+            return busqueda(nodo.getIzq(), folioBuscado);
         } else {
-            if (raiz.getDer() == null) {
-                raiz.setDer(nuevoNodo);
-            } else {
-                agregarParticipanteAlArbol(raiz.getDer(), nuevoNodo);
-            }
+            return busqueda(nodo.getDer(), folioBuscado);
         }
     }
 
-    public Nodo busqueda(Nodo actual, int valorBuscado) {
-        if (actual == null) {
-            return null;
-        }
-        if (valorBuscado == actual.getDato().getFolio()) {
-            return actual;
-        }
-        if (valorBuscado < actual.getDato().getFolio()) {
-            return busqueda(actual.getIzq(), valorBuscado);
+    public void agregarParticipanteAlArbol(Nodo nodo, Nodo nuevo) {
+        if (nuevo.getDato().getFolio() < nodo.getDato().getFolio()) {
+            if (nodo.getIzq() == null) {
+                nodo.setIzq(nuevo);
+            } else {
+                agregarParticipanteAlArbol(nodo.getIzq(), nuevo);
+            }
         } else {
-            return busqueda(actual.getDer(), valorBuscado);
+            if (nodo.getDer() == null) {
+                nodo.setDer(nuevo);
+            } else {
+                agregarParticipanteAlArbol(nodo.getDer(), nuevo);
+            }
         }
     }
 
     private void salir() {
-        System.out.println("Has Salido");
+        visualizarAsistentes();
+        visualizarNoAsistentes();
+        System.out.println("Has salido.");
     }
 }

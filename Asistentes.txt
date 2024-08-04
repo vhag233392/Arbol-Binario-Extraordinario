@@ -1,3 +1,6 @@
-Numero de folio: 123 
+Numero de folio: 123
 Nombre: Gael
+Asistencia: true
+Numero de folio: 321
+Nombre: Joselito
 Asistencia: true

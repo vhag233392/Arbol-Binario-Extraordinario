@@ -1,0 +1,6 @@
+Numero de folio: 567
+Nombre: Papa dio
+Asistencia: false
+Numero de folio: 678
+Nombre: Woyjack
+Asistencia: false
