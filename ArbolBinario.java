@@ -158,16 +158,16 @@ public class ArbolBinario {
             System.out.println("No hay participantes que asistieron para crear el árbol.");
             return;
         }
-        Participante raizNoAsistentes = participantesNoAsistentes.get(0);
+        Nodo raizNoAsistentes = new Nodo(participantesNoAsistentes.get(0));
         for (int idx = 1; idx < participantesNoAsistentes.size(); idx++) {
-            agregarParticipanteAlArbol(raizNoAsistentes, participantesNoAsistentes.get(idx));
+            agregarParticipanteAlArbol(raizNoAsistentes, new Nodo(participantesNoAsistentes.get(idx)));
         }
 
         Recorrido g = new Recorrido();
         System.out.println("Inorden (Participantes que no asistieron):");
         g.inorden(raizNoAsistentes);
 
-        archivo.escribirArchivo("NoAsistentes.txt", raizNoAsistentes);
+        archivo.escribirArchivo("NoAsistentes.txt", raizNoAsistentes.getDato());
     }
 
     public void visualizarAsistentes() {
@@ -176,16 +176,16 @@ public class ArbolBinario {
             return;
         }
 
-        Participante raiz = participantesAsistentes.get(0);
+        Nodo raiz = new Nodo(participantesAsistentes.get(0));
         for (int idx = 1; idx < participantesAsistentes.size(); idx++) {
-            agregarParticipanteAlArbol(raiz, participantesAsistentes.get(idx));
+            agregarParticipanteAlArbol(raiz, new Nodo(participantesAsistentes.get(idx)));
         }
 
         Recorrido r = new Recorrido();
         System.out.println("Inorden (Participantes que asistieron):");
         r.inorden(raiz);
 
-        archivo.escribirArchivo("Asistentes.txt", raiz);
+        archivo.escribirArchivo("Asistentes.txt", raiz.getDato());
     }
 
     public void busquedaDeParticipanteFolio() {
@@ -205,14 +205,14 @@ public class ArbolBinario {
                 return;
             }
 
-            Participante raiz = participantes.get(folioOrigen);
-            Participante nodo = busqueda(raiz, folioBuscado);
+            Nodo raiz = new Nodo(participantes.get(folioOrigen));
+            Nodo nodo = busqueda(raiz, folioBuscado);
 
             if (nodo != null) {
                 System.out.println("Folio Encontrado como: ");
-                System.out.println("Nombre: " + nodo.getNombre());
-                System.out.println("Folio: " + nodo.getFolio());
-                System.out.println("Asistencia: " + nodo.getAsistencia());
+                System.out.println("Nombre: " + nodo.getDato().getNombre());
+                System.out.println("Folio: " + nodo.getDato().getFolio());
+                System.out.println("Asistencia: " + nodo.getDato().getAsistencia());
             } else {
                 System.out.println("Folio No Encontrado");
             }
@@ -226,30 +226,30 @@ public class ArbolBinario {
         }
     }
 
-    private void agregarParticipanteAlArbol(Participante raiz, Participante nuevoParticipante) {
-        if (nuevoParticipante.getFolio() < raiz.getFolio()) {
+    private void agregarParticipanteAlArbol(Nodo raiz, Nodo nuevoNodo) {
+        if (nuevoNodo.getDato().getFolio() < raiz.getDato().getFolio()) {
             if (raiz.getIzq() == null) {
-                raiz.setIzq(nuevoParticipante);
+                raiz.setIzq(nuevoNodo);
             } else {
-                agregarParticipanteAlArbol(raiz.getIzq(), nuevoParticipante);
+                agregarParticipanteAlArbol(raiz.getIzq(), nuevoNodo);
             }
         } else {
             if (raiz.getDer() == null) {
-                raiz.setDer(nuevoParticipante);
+                raiz.setDer(nuevoNodo);
             } else {
-                agregarParticipanteAlArbol(raiz.getDer(), nuevoParticipante);
+                agregarParticipanteAlArbol(raiz.getDer(), nuevoNodo);
             }
         }
     }
 
-    public Participante busqueda(Participante actual, int valorBuscado) {
+    public Nodo busqueda(Nodo actual, int valorBuscado) {
         if (actual == null) {
             return null;
         }
-        if (valorBuscado == actual.getFolio()) {
+        if (valorBuscado == actual.getDato().getFolio()) {
             return actual;
         }
-        if (valorBuscado < actual.getFolio()) {
+        if (valorBuscado < actual.getDato().getFolio()) {
             return busqueda(actual.getIzq(), valorBuscado);
         } else {
             return busqueda(actual.getDer(), valorBuscado);

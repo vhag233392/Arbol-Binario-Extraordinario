@@ -1,34 +1,23 @@
 import java.io.*;
+
 public class Archivo {
-
-
 
     public void escribirArchivo(String nombreArchivo, Participante raiz){
         try (FileWriter archivo = new FileWriter(nombreArchivo)) {
             PrintWriter salida = new PrintWriter(archivo);
-            imprimirDatos(salida,raiz);
+            imprimirDatos(salida, new Nodo(raiz));
             salida.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        System.out.println("archivo modificado");
+    }
 
-    
-            System.out.println("archivo modificado");
-        
-        
-    
-    };
-    public void imprimirDatos(PrintWriter archivo, Participante raiz){
-
-
-        
-        if (raiz != null) {
-            imprimirDatos(archivo, raiz.getIzq());
-            archivo.println("Numero de folio: "+ raiz.getFolio() + " \nNombre: " + raiz.getNombre() + "\nAsistencia: " + raiz.getAsistencia() );
-            imprimirDatos(archivo, raiz.getDer());
-            
+    public void imprimirDatos(PrintWriter archivo, Nodo nodo){
+        if (nodo != null) {
+            imprimirDatos(archivo, nodo.getIzq());
+            archivo.println("Numero de folio: "+ nodo.getDato().getFolio() + " \nNombre: " + nodo.getDato().getNombre() + "\nAsistencia: " + nodo.getDato().getAsistencia() );
+            imprimirDatos(archivo, nodo.getDer());
         }
-
     }
 }

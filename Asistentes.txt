@@ -1,0 +1,3 @@
+Numero de folio: 123 
+Nombre: Gael
+Asistencia: true

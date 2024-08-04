@@ -1,11 +1,7 @@
-
 public class Participante {
-
     private int folio;
     private String nombre;
     private Boolean asistencia;
-    private Participante izq;
-    private Participante der;
 
     public Participante(Boolean asistencia, int folio, String nombre) {
         this.asistencia = asistencia;
@@ -25,14 +21,6 @@ public class Participante {
         return asistencia;
     }
 
-    public Participante getIzq() {
-        return izq;
-    }
-
-    public Participante getDer() {
-        return der;
-    }
-
     public void setFolio(int folio) {
         this.folio = folio;
     }
@@ -44,13 +32,4 @@ public class Participante {
     public void setAsistencia(Boolean asistencia) {
         this.asistencia = asistencia;
     }
-
-    public void setIzq(Participante izq) {
-        this.izq = izq;
-    }
-
-    public void setDer(Participante der) {
-        this.der = der;
-    }
-
 }

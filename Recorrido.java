@@ -1,36 +1,23 @@
-
 public class Recorrido {
-
-
-    
-    public void inorden(Participante participante) {
-        if (participante != null) {
-            inorden(participante.getIzq());
-            System.out.println("Folio --> " + participante.getFolio() + " Nombre --> " + participante.getNombre() + ", Asistencia --> " + participante.getAsistencia());
-            inorden(participante.getDer());
+    public void inorden(Nodo nodo) {
+        if (nodo != null) {
+            inorden(nodo.getIzq());
+            System.out.println("Folio --> " + nodo.getDato().getFolio() + " Nombre --> " + nodo.getDato().getNombre() + ", Asistencia --> " + nodo.getDato().getAsistencia());
+            inorden(nodo.getDer());
         }
     }
 
-
-    
-    public Participante busqueda(Participante actual, int valorBuscado){
-        
-        if(actual == null){
+    public Nodo busqueda(Nodo actual, int valorBuscado){
+        if (actual == null) {
             return null;
         }
-        if(valorBuscado == actual.getFolio()){
+        if (valorBuscado == actual.getDato().getFolio()) {
             return actual;
         }
-        if (valorBuscado < actual.getFolio()) {
+        if (valorBuscado < actual.getDato().getFolio()) {
             return busqueda(actual.getIzq(), valorBuscado);
         } else {
             return busqueda(actual.getDer(), valorBuscado);
         }
-        
     }
-
 }
-
-
-
-
